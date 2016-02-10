@@ -59,7 +59,7 @@ class CustomlogviewerPlugin extends BasePlugin
      */
     final public function hasCpSection()
     {
-        return true;
+        return false;
     }
 
     /**
