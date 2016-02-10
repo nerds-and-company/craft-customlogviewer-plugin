@@ -1,0 +1,16 @@
+{
+  "name": "nerds-and-company/craft-customlogviewer-plugin",
+  "description": "Plugin for Craft CMS that adds the ability to view custom log files.",
+  "authors": [
+      {
+          "name": "Nerds & Company - Craft Plugin Team",
+          "email": "craft-plugins@nerds.company",
+          "homepage": "http://github.com/nerds-and-company",
+          "role": "Maintainer"
+      }
+  ],
+  "type": "craft-plugin",
+  "require": {
+      "composer/installers": "~1.0"
+  }
+}
