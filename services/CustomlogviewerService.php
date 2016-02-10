@@ -2,7 +2,7 @@
 
 namespace Craft;
 
-class Customlogviewer_CustomLogViewerService extends BaseApplicationComponent
+class CustomlogviewerService extends BaseApplicationComponent
 {
     const PSR_LOG_REGEX = '/^\[(?P<DATETIME>[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}:[\d]{2})\] (?P<CHANNEL>.*)\.(?P<LEVEL>[A-Z]+):(?P<MESSAGE>.*)/';
     const PHP_ERROR_LOG_REGEX = '/^\[(?P<DATETIME>[\d]{2}-[a-zA-Z]{3}-[\d]{4}\s[\d]{2}:[\d]{2}:[\d]{2} [A-Z]*)\] (?P<CHANNEL>PHP)\s(?P<LEVEL>.*):\s(?P<MESSAGE>.*)/';

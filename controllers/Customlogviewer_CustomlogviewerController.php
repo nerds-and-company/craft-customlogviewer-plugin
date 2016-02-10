@@ -16,8 +16,8 @@ class Customlogviewer_CustomlogviewerController extends BaseController
     {
         craft()->config->maxPowerCaptain();
 
-        /** @var Customlogviewer_CustomLogViewerService $customLogViewerService */
-        $customLogViewerService = craft()->customLogViewer;
+        /** @var CustomLogViewerService $customLogViewerService */
+        $customLogViewerService = craft()->customlogviewer;
         $logPath = craft()->path->getLogPath();
 
 
