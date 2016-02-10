@@ -1,0 +1,70 @@
+{% extends "_layouts/cp" %}
+
+{% if not currentUser.admin %}
+    {% exit 404 %}
+{% endif %}
+
+{% set title = "Utilities"|t %}
+
+{% set tabs = {
+customlogviewer: { label: "Custom Logs"|t,               url: url('customlogviewer') },
+} %}
+
+{% set selectedTab = 'customlogviewer' %}
+
+{% from 'utils/logs' import table %}
+
+
+{% block content %}
+
+    <div class="field">
+        <select onchange="Craft.redirectTo('customlogviewer/'+this.value);">
+            {% for fileName in logFileNames %}
+                <option{% if fileName == currentLogFileName %} selected{% endif %}>{{ fileName }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    {% for logEntries in logEntries %}
+
+        {% if not loop.first %}<hr>{% endif %}
+
+        {% for logEntry in logEntries %}
+
+            <h2>{{ logEntry.title }}</h2>
+
+            <table class="data fullwidth">
+                <tr>
+                    <th class="light" width="300">Level</th>
+                    <td>{{ logEntry.level }}</td>
+                </tr>
+                <tr>
+                    <th class="light" width="300">Channel</th>
+                    <td>{{ logEntry.channel }}</td>
+                </tr>
+                {% if logEntry.message %}
+                    <tr>
+                        <th class="light" width="300">Message</th>
+                        <td>
+                            {{ logEntry.message }}
+                            {% if logEntry.stacktrace %}
+                                <h3>Stacktrace</h3>
+                                <ol>
+                                    {% for step in logEntry.stacktrace %}
+                                        <li>{{ step }}</li>
+                                    {% endfor %}
+                                </ol>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            </table>
+        {% endfor %}
+
+    {% endfor %}
+    {% if pageInfo.prevUrl %}<a href="{{ pageInfo.prevUrl }}">Previous Page</a>{% endif %}
+    |
+    {% if pageInfo.nextUrl %}<a href="{{ pageInfo.nextUrl }}">Next Page</a>{% endif %}
+
+
+{% endblock %}
