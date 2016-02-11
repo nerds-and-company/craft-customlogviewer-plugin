@@ -19,9 +19,13 @@ customlogviewer: { label: "Custom Logs"|t,               url: url('customlogview
 
     <div class="field">
         <select onchange="Craft.redirectTo('customlogviewer/'+this.value);">
+        {% if logFileNames %}
             {% for fileName in logFileNames %}
                 <option{% if fileName == currentLogFileName %} selected{% endif %}>{{ fileName }}</option>
             {% endfor %}
+        {% else %}
+            <option disabled>No log files available</option>
+        {% endif %}
         </select>
     </div>
 
