@@ -17,21 +17,25 @@ class Customlogviewer_CustomlogviewerController extends BaseController
         craft()->config->maxPowerCaptain();
 
         /** @var CustomLogViewerService $customLogViewerService */
-        $customLogViewerService = craft()->customlogviewer;
+        $customLogViewerService = craft()->getComponent('customlogviewer');
         $logPath = craft()->path->getLogPath();
 
+        $paginationVariable = new PaginateVariable();
 
         $logFileNames = $customLogViewerService->fetchLogFiles($logPath);
 
-        $currentLogFileName = $customLogViewerService->currentLogFile($variables, $logFileNames[0]);
+        if (array_key_exists(0, $logFileNames)) {
+            $currentLogFileName = $customLogViewerService->currentLogFile($variables, $logFileNames[0]);
 
-        $contents = $this->getFileContents($currentLogFileName);
-        $paginationVariable = new PaginateVariable();
+            $contents = $this->getFileContents($currentLogFileName);
+            $contents = explode("\n", $contents);
+            $contents = array_reverse($contents);
 
-        $contents = explode("\n", $contents);
-        $contents = array_reverse($contents);
-
-        $customLogViewerService->populatePaginationVariable($paginationVariable, $contents);
+            $customLogViewerService->populatePaginationVariable($paginationVariable, $contents);
+        } else {
+            $contents = [];
+            $currentLogFileName = '';
+        }
 
         $paginationRange = range($paginationVariable->first-1, $paginationVariable->last);
 
